@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from './layout.module.css'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
-import { Navbar } from './navbar'
+
 
 const name = 'Jaden Yu'
 export const siteTitle = "Jaden Yu's Blog"
@@ -11,7 +11,6 @@ export const siteTitle = "Jaden Yu's Blog"
 export default function Layout({ children, home }) {
   return (
     <div className={styles.container}>
-      <Navbar />
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
