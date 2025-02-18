@@ -27,7 +27,7 @@ There are two ways to install the require libraries. The first one is using the 
 Find the Packages tab on the right side of RStudio, then select the Packages tab to activate the Packages session. Click the Install button below, and the Install Packages dialog will be open.    
 Then enter the Package names in the text box and click the Install button. Wait for a few moments, and the installation will be successful.
 
-![](/public/images/Web%20Scraping%20in%20R/scraping_1.png "Install package in R")
+![](/images/Web%20Scraping%20in%20R/scraping_1.png "Install package in R")
 
 For the first part of this tutorial, the package we need are `rvest` and `dplyr`. 
 
@@ -49,7 +49,7 @@ Before we start web scraping, we need to find out whether the page we are scrapi
 
 In this example, we want to scrape [the top 250 Movies in IMDB](https://www.imdb.com/chart/top/?ref_=nv_mv_250). And we will be scraping the 4 elements (Rank, Title, Year, and Rating) in this website.
 
-![](/public/images/Web%20Scraping%20in%20R/IMDB_top250.png "IMDB Top 250")
+![](/images/Web%20Scraping%20in%20R/IMDB_top250.png "IMDB Top 250")
 
 **Step 1:** Begin with loading the rvest package by enter the following code.
 
@@ -72,9 +72,9 @@ document <- read_html(url)
 **Step 3:** Select the HTML elements.   
 By watching the HTML code of the page, we can find that the title and year of the movie are stored in the td.titleColumn HTML element, and the corresponding Rating is stored in the td.ratingColumn.imdbRating HTML element.
 
-![](/public/images/Web%20Scraping%20in%20R/html_1.png)
+![](/images/Web%20Scraping%20in%20R/html_1.png)
 
-![](/public/images/Web%20Scraping%20in%20R/html_2.png)
+![](/images/Web%20Scraping%20in%20R/html_2.png)
 
 Therefore, we use the following code to select them.
 
