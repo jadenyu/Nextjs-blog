@@ -35,7 +35,7 @@ For the first part of this tutorial, the package we need are `rvest` and `dplyr`
 
 Run the `install.packages()` command in the console. Here is an example to install the `rvest` package and `dplyr` package.
 
-```
+```r
 # install packages
 install.packages("rvest")
 install.packages("dplyr")
@@ -53,7 +53,7 @@ In this example, we want to scrape [the top 250 Movies in IMDB](https://www.imdb
 
 **Step 1:** Begin with loading the rvest package by enter the following code.
 
-```
+```r
 # load the package
 library(rvest)
 library(dplyr)
@@ -61,7 +61,7 @@ library(dplyr)
 
 **Step 2:** Save the website address into the url variable, then use the `read_html()` function to read the HTML code from the website then assign the result to the `document` variable.
 
-```
+```r
 # save the url
 url <- "https://www.imdb.com/chart/top/?ref_=nv_mv_250"
 
@@ -78,7 +78,7 @@ By watching the HTML code of the page, we can find that the title and year of th
 
 Therefore, we use the following code to select them.
 
-```
+```r
 # selecting the list of movie HTML elements
 html_movie <- document %>% html_elements("td.titleColumn")
 html_rating <- document %>% html_elements("td.ratingColumn.imdbRating")
@@ -87,7 +87,7 @@ html_rating <- document %>% html_elements("td.ratingColumn.imdbRating")
 Looking further, we see that title is stored in `a`, year is stored in `span`.secondaryInfo, and rating information is stored in `strong`.    
 Therefore, we use the following code to select these nodes we need.
 
-```
+```r
 # selecting the "a" HTML element from html_movie storing the movie title
 title_element <- html_movie %>% html_elements("a")
 
@@ -100,7 +100,7 @@ rating_element <- html_rating %>% html_elements("strong")
 
 **Step 4:** Use the following code to extract the corresponding data from the HTML element.
 
-```
+```r
 # extracting data from the list of movies and storing the scraped data into 3 lists
 movie_title <- title_element %>% html_text2()
 movie_year <- year_element %>% html_text2()
@@ -110,7 +110,7 @@ movie_rating <- rating_element %>% html_text2()
 Since the data we need is stored as text in HTML elements, we can use `html_text2()` to extract this text directly.   
 At this point, we get three data: `movie_title`, `movie_year`, `movie_rating`, and now we put them together with `data.frame` and change their column name using `names()`. 
 
-```
+```r
 # converting the lists containg the scraped data into a dataframe
 movies <- data.frame(
   movie_title,
@@ -124,7 +124,7 @@ names(movies) <- c("Title", "Year", "IMDB Rating")
 
 However, we look at the table and find that there is no Rank, so we add a Rank in the first column of the table.
 
-```
+```r
 # add the rank number, and put them to the first row
 movies$Rank=1:nrow(movies)
 movies <- movies %>% select(Rank,Title,Year,`IMDB Rating`)
@@ -133,7 +133,7 @@ movies <- movies %>% select(Rank,Title,Year,`IMDB Rating`)
 **Step 5:** Export the scraped data as a CSV file   
 Using `write.table()` method to export the data, and store into IBDB_Movie_Rating.csv.
 
-```
+```r
 # export the data frame containing the scraped data to a CSV file
 write.table(movies, file = "IBDB_Movie_Rating.csv", sep =",", row.names = F, col.names = T)
 ```
@@ -145,7 +145,7 @@ While the rvest library is an excellent tool for crawling most static pages, it 
 **Step 1:** Install the RSelenium package and load it   
 You can use the RStudio User interface as explain in the first section in the tutorial. Here we use the console as the example. 
 
-```
+```r
 # install package
 install.packages("RSelenium")
 # load package
@@ -156,13 +156,13 @@ library(dplyr)
 **Step 2:** Starting Selenium  
 In this tutorial, I start the Selenium server using Docker and connect it using RSelenium. First, download Docker and run the following command from the terminal.
 
-```
+```bash
 docker run -d -p 4445:4444 selenium/standalone-firefox
 ```
 
 This command will download a latest Firefox and start a container. Once the server start, use the following code in RStudio to connect the server.
 
-```
+```r
 # start RSelenium service 
 remDr <- remoteDriver(
   remoteServerAddr = "localhost",
@@ -174,7 +174,7 @@ remDr$open()
 
 While the connect successfully, use `navigate()` function to navigate to the URL.
 
-```
+```r
 # navigate to the URL
 remDr$navigate("https://www.imdb.com/chart/top/?ref_=nv_mv_250")
 ```
@@ -182,7 +182,7 @@ remDr$navigate("https://www.imdb.com/chart/top/?ref_=nv_mv_250")
 **Step 3:** Scraping the data  
 Create 3 lists to store the movies title, year, and rating.
 
-```
+```r
 # Create list to store titles, years, and ratings
 movie_titles <- list()
 movie_years <- list()
@@ -191,7 +191,7 @@ movie_rating <- list()
 
 To locate the HTML elements, use `findElements()` function. This function is highly adaptable and capable of operating with a variety of methods, including CSS Selectors, XPath, and even specific attributes like id, name, and tag name. Here, we use CSS Selectors to locate it.
 
-```
+```r
 # iterating all movie HTML element and rating HTML element
 html_movies <- remDr$findElements(using = "css selector", value = "td.titleColumn")
 html_ratings <- remDr$findElements(using = "css selector", value = "td.ratingColumn.imdbRating")
@@ -199,7 +199,7 @@ html_ratings <- remDr$findElements(using = "css selector", value = "td.ratingCol
 
 Since, the data we need all store as text, so we can use `getElementText()` function to get the text from the HTML element. It can be done as follows:
 
-```
+```r
 # scraping the data from each movie
 for (html_movie in html_movies) {
   movie_titles <- append(
@@ -223,7 +223,7 @@ for (html_rating in html_ratings) {
 
 **Step 4:** unlist the 3 list, then use `data.frame()` function to containing the data. Then same as above use `names()` to change the column names.
 
-```
+```r
 # converting the lists containg the scraped data into a dataframe
 movies <- data.frame(
   unlist(movie_titles),
@@ -237,7 +237,7 @@ names(movies) <- c("Title", "Year", "IMDB Rating")
 
 **Step 5:** Then add the rank column, and save them as a CSV file, which is the same as above using rvest. Then there will have a IBDB_Movie_Rating.csv file store the scraping data.
 
-```
+```r
 # add the rank number, and put them to the first row
 movies$Rank=1:nrow(movies)
 movies <- movies %>% select(Rank,Title,Year,`IMDB Rating`)

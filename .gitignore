@@ -29,3 +29,40 @@ Thumbs.db
 
 # Misc
 .vercel/
+
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Production build
+build/
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Env files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE/editor
+.idea/
+.vscode/
+
+# Misc
+.vercel/
+
+# Local tool outputs (should not be committed)
+.output.txt
+*.output.txt
+.output*.txt

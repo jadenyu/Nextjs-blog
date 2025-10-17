@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { Navbar } from '../components/navbar';
 import '../styles/global.css'
-import 'highlight.js/styles/atom-one-dark.css'
 import 'tailwindcss/tailwind.css'
 
 export default function App({ Component, pageProps }) {
