@@ -1,4 +1,4 @@
-Language: English | [Chinese](README_zh.md)
+Language: English | [Chinese](./README.zh-CN.md)
 
 # Next.js Blog
 
