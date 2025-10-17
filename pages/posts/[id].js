@@ -3,6 +3,8 @@ import { getAllPostIds, getPostData } from '../../lib/posts'
 import Head from 'next/head'
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
+import { MDXRemote } from 'next-mdx-remote'
+import mdxComponents from '../../components/mdx-components'
 
 export default function Post({ postData }) {
   return (
@@ -15,7 +17,13 @@ export default function Post({ postData }) {
         <div className={utilStyles.lightText}>
           <Date dateString={postData.date} />
         </div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        {postData.mdxSource ? (
+          <div className="prose max-w-none">
+            <MDXRemote {...postData.mdxSource} components={mdxComponents} />
+          </div>
+        ) : (
+          <div className="prose max-w-none" dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        )}
       </article>
     </Layout>
   )

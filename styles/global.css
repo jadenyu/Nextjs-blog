@@ -25,3 +25,82 @@ img {
   max-width: 100%;
   display: block;
 }
+
+/* Code block styling */
+pre {
+  background: #0f172a; /* slate-900 */
+  color: #e2e8f0; /* slate-200 */
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow: auto;
+  border: 1px solid #1f2937; /* gray-800 */
+  line-height: 1.5;
+}
+
+pre code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.9rem;
+}
+
+code {
+  background: #111827; /* gray-900 */
+  color: #e5e7eb; /* gray-200 */
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.375rem;
+  border: 1px solid #1f2937;
+}
+
+
+/* Enhanced code block toolbar */
+.code-block {
+  margin: 1rem 0;
+}
+
+.code-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0b1220; /* slightly darker than pre */
+  color: #cbd5e1; /* slate-300 */
+  border: 1px solid #1f2937; /* gray-800 */
+  border-bottom: none;
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.code-block pre {
+  margin: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.code-lang {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  opacity: 0.9;
+}
+
+.copy-btn {
+  background: #111827; /* gray-900 */
+  color: #e5e7eb; /* gray-200 */
+  border: 1px solid #374151; /* gray-700 */
+  border-radius: 0.375rem;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background: #1f2937; /* gray-800 */
+}
+
+.copy-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .copy-btn {
+    transition: background-color 0.15s ease, opacity 0.15s ease;
+  }
+}
